@@ -31,6 +31,11 @@ function Plots.plot(m::Model, component::Symbol, parameter::Symbol ; index::Symb
 
     plt = plot() # Clear out any previous plots
 
+    for leg in Mimi.getindexlabels(m, component, parameter)
+        if !(leg == time)
+            legend = leg
+        end
+    end
     if legend == :none
         # Assume that we are only plotting one line (i.e. it's not split up by regions)
         plt = plot(m.indices_values[index], m[component, parameter], xlabel=x_label, ylabel=y_label)
